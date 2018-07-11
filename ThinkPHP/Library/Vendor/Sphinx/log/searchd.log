@@ -1,0 +1,35 @@
+[Wed May  2 19:03:56.174 2018] [11332] listening on all interfaces, port=9312
+[Wed May  2 19:03:56.177 2018] [11332] listening on all interfaces, port=9306
+[Wed May  2 19:03:56.186 2018] [11332] WARNING: index 'test1stemmed': prealloc: failed to open /var/data/test1stemmed.sph: No such file or directory; NOT SERVING
+[Wed May  2 19:03:56.220 2018] [11332] WARNING: index 'rt': prealloc: failed to open /var/data/rt.lock: No such file or directory; NOT SERVING
+[Wed May  2 19:03:56.221 2018] [11332] WARNING: No extra index definitions found in data folder
+[Wed May  2 19:03:56.246 2018] [11416] prereading 1 indexes
+[Wed May  2 19:03:56.246 2018] [11332] accepting connections
+[Wed May  2 19:03:56.247 2018] [11416] prereaded 1 indexes in 0.001 sec
+[Fri May  4 14:50:17.769 2018] [8308] listening on all interfaces, port=9312
+[Fri May  4 14:50:17.770 2018] [8308] listening on all interfaces, port=9306
+[Fri May  4 14:50:17.777 2018] [8308] WARNING: index 'test1stemmed': prealloc: failed to open /var/data/test1stemmed.sph: No such file or directory; NOT SERVING
+[Fri May  4 14:50:17.789 2018] [8308] WARNING: index 'rt': prealloc: failed to open /var/data/rt.lock: No such file or directory; NOT SERVING
+[Fri May  4 14:50:17.793 2018] [8308] WARNING: No extra index definitions found in data folder
+[Fri May  4 14:50:17.795 2018] [8308] binlog: replaying log ./binlog.001
+[Fri May  4 14:50:17.796 2018] [8308] binlog: replay stats: 0 rows in 0 commits; 0 updates, 0 reconfigure; 0 indexes
+[Fri May  4 14:50:17.797 2018] [8308] binlog: finished replaying ./binlog.001; 0.0 MB in 0.000 sec
+[Fri May  4 14:50:17.797 2018] [8308] binlog: finished replaying total 1 in 0.002 sec
+[Fri May  4 14:50:17.822 2018] [8308] accepting connections
+[Fri May  4 14:50:17.823 2018] [6776] prereading 1 indexes
+[Fri May  4 14:50:17.824 2018] [6776] prereaded 1 indexes in 0.001 sec
+[Fri May  4 14:52:35.085 2018] [6432] listening on all interfaces, port=9312
+[Fri May  4 14:52:35.087 2018] [6432] listening on all interfaces, port=9306
+[Fri May  4 14:52:35.095 2018] [6432] WARNING: index 'test1stemmed': prealloc: failed to open /var/data/test1stemmed.sph: No such file or directory; NOT SERVING
+[Fri May  4 14:52:35.104 2018] [6432] WARNING: index 'rt': prealloc: failed to open /var/data/rt.lock: No such file or directory; NOT SERVING
+[Fri May  4 14:52:35.105 2018] [6432] WARNING: No extra index definitions found in data folder
+[Fri May  4 14:52:35.107 2018] [6432] binlog: replaying log ./binlog.001
+[Fri May  4 14:52:35.109 2018] [6432] binlog: replay stats: 0 rows in 0 commits; 0 updates, 0 reconfigure; 0 indexes
+[Fri May  4 14:52:35.109 2018] [6432] binlog: finished replaying ./binlog.001; 0.0 MB in 0.000 sec
+[Fri May  4 14:52:35.110 2018] [6432] binlog: replaying log ./binlog.002
+[Fri May  4 14:52:35.110 2018] [6432] binlog: replay stats: 0 rows in 0 commits; 0 updates, 0 reconfigure; 0 indexes
+[Fri May  4 14:52:35.110 2018] [6432] binlog: finished replaying ./binlog.002; 0.0 MB in 0.000 sec
+[Fri May  4 14:52:35.112 2018] [6432] binlog: finished replaying total 2 in 0.004 sec
+[Fri May  4 14:52:35.115 2018] [6432] accepting connections
+[Fri May  4 14:52:35.115 2018] [3172] prereading 1 indexes
+[Fri May  4 14:52:35.116 2018] [3172] prereaded 1 indexes in 0.001 sec
