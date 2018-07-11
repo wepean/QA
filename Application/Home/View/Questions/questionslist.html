@@ -1,0 +1,273 @@
+<include file="Public/Public_header" />
+<div class="page-container">
+    <include file="Public/Public_left" />
+    <div class="page-content-wrapper">
+        <div class="page-content">
+            <ul class="box">
+            	<h2 class="box_tit"><a href="{:U('Questions/questionsImport')}" class="add_btn layui-btn-normal">批量导入问题</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="{:U('Questions/questionsAdd')}" class="add_btn layui-btn-normal layui-btn-radius">添加问题</a>问题列表</h2>
+                <div class="box_con col8 fn-clear">
+                    <ul class="cate_tit fn-clear" style="margin-bottom: 1px;">
+                            <form id="search-form2" class="navbar-form form-inline layui-form"  method="post">
+                            <div class="form-group">
+                                <label  class="control-label">问题ID：<label>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input  style="width:90px;" type="text" class="form-control" id="questionsId" placeholder="问题ID" value="<if condition='!empty($qid)'>{$qid}</if>" name="questionsId">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  class="control-label">问题关键词：<label>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input  style="width:300px;" type="text" class="form-control" id="keywords" placeholder="问题名" value="<if condition='!empty($kyword)'>{$kyword}</if>" name="keywords">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="btn btn-primary" onclick="adsubmit()" ><i class="fa fa-search"></i> 搜索</label>
+                            </div>
+                                <div class="form-group">
+                                    <label  class="control-label">分类查询：<label>
+                                </div>
+                                <div class="form-group">
+                                    <select class="form-control"   name="answer_sort" id="answer-sort" onchange="changes(this)">
+                                        <option value="1">全部</option>
+                                        <option value="2" <if condition='!empty($oid) && $oid eq "2"'>selected</if>>无答案</option>
+                                        <option value="3" <if condition='!empty($oid) && $oid eq "3"'>selected</if>>有答案</option>
+                                        <option value="4" <if condition='!empty($oid) && $oid eq "4"'>selected</if>>被禁用</option>
+                                        <option value="5" <if condition='!empty($oid) && $oid eq "5"'>selected</if>>没有禁用</option>
+                                        <option value="6" <if condition='!empty($oid) && $oid eq "6"'>selected</if>>机器人自学的问题</option>
+                                        <option value="7" <if condition='!empty($oid) && $oid eq "7"'>selected</if>>还没有分类的问题</option>
+                                        <option value="8" <if condition='!empty($oid) && $oid eq "8"'>selected</if>>手动或导入的问题</option>
+                                    </select>
+                                </div>
+                        </form>
+                    </ul>
+                    <ul class="cate_tit fn-clear" style="margin-bottom: 1px;">
+                        <div class="form-group">
+                            <a href="javascript:void(0);" class="add_btn layui-btn layui-btn-radius" style="float: left;margin: 6px 10px 5px 12px;" id="all">获取问题答案</a>
+                            <!--<a href="javascript:void(0);" class="add_btn layui-btn layui-btn-normal layui-btn-radius" style="float: left;margin: 6px 10px 5px 12px;" id="alls">为对答机器人添加问题</a>-->
+                            <a href="javascript:void(0);" class="add_btn layui-btn layui-btn-danger" style="float: left;margin: 6px 10px 5px 12px;" id="dall">批量删除</a>
+                        </div>
+                    </ul>
+
+                    <ul class="cate_tit fn-clear" style="font-weight: bold">
+                        <li  style="width:2%;"><input type="checkbox" onclick="$('input[name*=\'id\']').prop('checked', this.checked);" class="checks"></li>
+                        <li style="width:6%">ID</li>
+                        <li style="width:14%">问题</li>
+                        <li >答案</li>
+                        <li>添加时间</li>
+                        <li>提问人</li>
+                        <li>所属分类</li>
+                        <li style="width:8%">是否机器学习</li>
+                        <li style="width:6%">启用状态</li>
+                        <li>操作</li>
+                    </ul>
+                    <foreach name="admin_list" item="list">
+                    <div class="cate_item fn-clear" id="admin_list_{$list['id']}">
+                        <p style="width:2%;"><input class="ids" type="checkbox" name="id" value="{$list['id']}" style="margin-top: 25px;"></p>
+                        <p style="width:6%">{$list['id']}</p>
+                        <p onclick="editType({$list['id']})" style="color: #00a0e9;">{$list['question_title']}</p>
+                        <if condition="$list['contents'] neq ''">
+                            <div onclick="editType({$list['id']})" style="overflow: hidden;width:169px;height:190px;float:left;"><php>echo htmlspecialchars_decode($list['contents']);</php></div>
+                        <else/>
+                        <p style="width:169px;">--</p>
+                        </if>
+                        <p>{$list['add_time']|date="Y-m-d H:i",###}</p>
+                        <p><if condition="$list['admin_id'] neq ''">{$list['consultanter']}<else/>{$list['consultanter']}</if></p>
+                        <p>{$list['type_id']}</p>
+                        <p style="width:6%">
+                            <img width="25" height="25" style="margin-top: 20px;" src="__PUBLIC__/Images/<php> echo ($list['is_robot_learning'] == '1')  ? 'yes' : 'cancel';</php>.png" >
+                        </p>
+                        <p style="width:6%">
+                            <img width="25" height="25" style="margin-top: 20px;" src="__PUBLIC__/Images/<php> echo ($list['status'] == 1)  ? 'yes' : 'cancel';</php>.png" >
+                        </p>
+                        <p class="last">
+                                <if condition="$list['status'] eq 1">
+                                    <button type="button"  data-id="{$list['id']}" data-num='200' data-url="__ROOT__/index.php?s=/Home/Questions/questionsStatus/id/{$list['id']}" onclick="set_statu(this)" class="btn btn-default" >禁用</button>
+                                    <else />
+                                    <button type="button"  data-id="{$list['id']}" data-num='200' data-url="__ROOT__/index.php?s=/Home/Questions/questionsStatus/id/{$list['id']}" onclick="set_statu(this)" class="btn btn-success" >启用</button>
+                                    </if>
+                            <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="编辑" onclick="editType({$list['id']})"><i class="fa fa-pencil"></i></a>
+                            <a class="btn btn-danger" href="javascript:void(0)" data-url="{:U('Questions/questionsDel')}" data-id="{$list['id']}" onclick="delfun(this)"><i class="fa fa-trash-o"></i></a>
+                        </p>
+                    </div>
+                    </foreach>
+                        <a href="javascript:void(0);" class="add_btn layui-btn layui-btn-radius" style="float: left" id="allii">获取问题答案</a>
+                    <div class="page fn-clear">
+                        {$page}
+                    </div>
+                </div> 
+            </div>
+        </div>
+        <script>
+            /*
+             * 批量获取问题答案
+             */
+            $("#all,#allii").click(function(){
+                var aa = '';
+                $("input[name='id']:checkbox:checked").each(function(){
+                    aa += $(this).val()+',';
+                });
+                if (aa.length == 0)
+                {
+                    layer.msg('请选择问题！', {icon: 2});
+                    return false;
+                }
+                var url = '{:U("Questions/getQuestionsAnswer")}';
+                show_loading();
+                    $.ajax({
+                        url:url,
+                        type:'post',
+                        dataType:'json',
+                        data:{id:aa},
+                        success:function(data){
+                            close_loading(data.error,data.status);
+                        }
+                    });
+            });
+            /*
+             * 为机器人添加问题答案
+             */
+            $("#alls").click(function(){
+                    var aa = '';
+                    $("input[name='id']:checkbox:checked").each(function(){
+                        aa += $(this).val()+',';
+                    });
+                    if (aa.length == 0)
+                    {
+                        layer.msg('请选择问题！', {icon: 2});
+                        return false;
+                    }
+                   show_loading();
+                    var url = '{:U("Questions/getRobotQuestion")}';
+                    $.ajax({
+                        url:url,
+                        type:'post',
+                        dataType:'json',
+                        data:{id:aa},
+                        success:function(data){
+                            close_loading(data.error,data.status);
+                        }
+                    });
+
+
+            });
+            //搜索提交
+            function adsubmit()
+            {
+                var starttime = $.trim($('#questionsId').val());
+                var keywords  = $.trim($('input[name=keywords]').val());
+                var r         = /^[0-9]*[1-9][0-9]*$/;　　//正整数
+                //验证
+                if (starttime == ''  && keywords == '')
+                {
+                    show_messages('请输入搜索条件！');
+                    return false;
+                }
+                if (!r.test(starttime)  && starttime != '')
+                {
+                    show_messages('问题ID必须为整数！');
+                    $('#questionsId').focus();
+                    return false;
+                }
+
+                $('#search-form2').submit();
+            }
+            //删除
+            function delfun(obj){
+                var url = $(obj).attr('data-url');
+                var id  = $(obj).attr('data-id');
+                layer.confirm('确定删除此问题？', {
+                    btn: ['确定','取消']
+                }, function(){
+                    show_loading();
+                    $.ajax({
+                        url:url,
+                        type:'post',
+                        dataType:'json',
+                        data:{id:id},
+                        success:function(data){
+                            layer.msg(data.error, {icon: 1},function(){
+                                if(data.status == '1'){
+                                    $('#admin_list_'+id).remove();
+                                }
+                                layer.closeAll();
+                            });
+                        }
+                    });
+                }, function(){
+                    layer.close();
+                });
+            }
+            /*
+             * 批量删除
+             */
+            $("#dall").click(function(){
+                var aa = '';
+                $("input[name='id']:checkbox:checked").each(function(){
+                    aa += $(this).val()+',';
+                });
+                if (aa.length == 0)
+                {
+                    layer.msg('请选择问题！', {icon: 2});
+                    return false;
+                }
+                layer.confirm('确定删选择问题？', {
+                    btn: ['确定','取消']
+                }, function(){
+                    show_loading();
+                    var url = '{:U("Questions/questionsDel")}';
+                    $.ajax({
+                        url:url,
+                        type:'post',
+                        dataType:'json',
+                        data:{id:aa},
+                        success:function(data){
+                            close_loading(data.error,data.status);
+                        }
+                    });
+                }, function(){
+                    layer.close();
+                });
+
+            });
+            //启用/禁用
+            function set_statu(obj){
+                var url = $(obj).attr('data-url');
+                var id  = $(obj).attr('data-id');
+                show_loading();
+                $.ajax({
+                    url:url,
+                    type:'post',
+                    dataType:'json',
+                    data:{id:id},
+                    success:function(data){
+                        close_loading(data.error,data.status);
+                    }
+                });
+
+            }
+            //iframe层
+            function editType(obj)
+            {
+                 layer.open({
+                     type: 2,
+                     title: '问题修改',
+                     maxmin: true,
+                     shadeClose: true,
+                     shade: 0.8,
+                     area: ['90%', '90%'],
+                     content: '__ROOT__/index.php?s=/Home/Questions/questionsEdit/id/'+obj //iframe的url
+                 });
+            }
+
+            function changes(obj)
+            {
+
+                var id=obj.value;
+                document.location.href = '__ROOT__/index.php?s=/Home/Questions/questionsList/oid/'+id;
+            }
+        </script>
+        <include file="Public/Public_footer" />

@@ -1,0 +1,152 @@
+<include file="Public/Public_header" />
+<div class="page-container">
+    <include file="Public/Public_left" />
+    <div class="page-content-wrapper">
+        <div class="page-content">
+            <div class="box">
+            	<h2 class="box_tit"><!--a href="javascript:void(0);" id="getSort" data_url="{:U('Article/getArticleType')}" data_id="1" onclick="getSort()" class="add_btn layui-btn-normal">批量获取文章分类</a--><a href="{:U('NurseArticle/nurseArticleQuestionsType')}" class="add_btn layui-btn-normal layui-btn-radius">添加文章分类</a>文章分类列表</h2>
+                <div class="box_con col8 fn-clear">
+                    <ul class="cate_tit fn-clear">
+                        <form id="search-form2" class="navbar-form form-inline"  method="post">
+                            <div class="form-group">
+                                <label  class="control-label">文章分类关键词：<label>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input  style="width:300px;" type="text" class="form-control" id="keywords" placeholder="文章分类名" value="<if condition='!empty($kyword)'>{$kyword}</if>" name="keywords">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="btn btn-primary" onclick="adsubmit()" ><i class="fa fa-search"></i> 搜索</label>
+                            </div>
+                        </form>
+                    </ul>
+                    <ul class="cate_tit fn-clear">
+                        <li>ID</li>
+                        <li>文章分类</li>
+                        <li>描述</li>
+                        <li>添加时间</li>
+                        <li>添加人</li>
+                        <li>是否新添</li>
+                        <li>启用状态</li>
+                        <li>操作</li>
+                    </ul>
+
+                    <foreach name="admin_list" item="list">
+                    <div class="cate_item fn-clear" id="admin_list_{$list['id']}">
+                        <p>{$list['id']}</p>
+                        <p onclick="editType({$list['id']})" style="color: #00a0e9;">{$list['type_name']}</p>
+                        <p>{$list['description']}</p>
+                        <p>{$list['add_time']|date="Y-m-d H:i",###}</p>
+                        <p><if condition="$list['admin_id']">{$list['admin_id']}<else />机器人</if></p>
+                        <p>
+                            <img width="25" height="25" src="__PUBLIC__/Images/<php> echo ($list['is_new'] == 1)  ? 'yes' : 'cancel';</php>.png" >
+                        </p>
+                        <p>
+                            <img width="25" height="25" src="__PUBLIC__/Images/<php> echo ($list['status'] == 1)  ? 'yes' : 'cancel';</php>.png" >
+                        </p>
+                        <p class="last">
+                                <if condition="$list['status'] eq 1">
+                                    <button type="button"  data-id="{$list['id']}" data-num='200' data-url="__ROOT__/index.php?s=/Home/NurseArticle/nurseArticleTypeStatus/id/{$list['id']}" onclick="set_statu(this)" class="btn btn-default" >禁用</button>
+                                    <else />
+                                    <button type="button"  data-id="{$list['id']}" data-num='200' data-url="__ROOT__/index.php?s=/Home/NurseArticle/nurseArticleTypeStatus/id/{$list['id']}" onclick="set_statu(this)" class="btn btn-success" >启用</button>
+                                 </if>
+                            <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="编辑" onclick="editType({$list['id']})"><i class="fa fa-pencil"></i></a>
+                            <a class="btn btn-danger" href="javascript:void(0)" data-url="__ROOT__/index.php?s=/Home/NurseArticle/nurseArticleTypeDel/id/{$list['id']}" data-id="{$list['id']}" onclick="delfun(this)"><i class="fa fa-trash-o"></i></a>
+
+                        </p>
+                    </div>
+                    </foreach>
+                    <div class="page fn-clear">
+                        {$page}
+                    </div>
+                </div> 
+            </div>
+        </div>
+        <script>
+            //搜索提交
+            function adsubmit()
+            {
+                var keywords = $.trim($('input[name=keywords]').val());
+                //验证
+                if (keywords == '')
+                {
+                    show_messages('请输入搜索条件！');
+                    $('#keywords').focus();
+                    return false;
+                }
+
+                $('#search-form2').submit();
+            }
+            //删除
+            function delfun(obj){
+                var url = $(obj).attr('data-url');
+                var id  = $(obj).attr('data-id');
+                layer.confirm('确定删除此文章分类？', {
+                    btn: ['确定','取消']
+                }, function(){
+                    show_loading();
+                    $.ajax({
+                        url:url,
+                        type:'post',
+                        dataType:'json',
+                        data:{id:id},
+                        success:function(data){
+                            layer.msg(data.error, {icon: 1},function(){
+                                if(data.status == '1'){
+                                    $('#admin_list_'+id).remove();
+                                }
+                                layer.closeAll();
+                            });
+                        }
+                    });
+                }, function(){
+                    layer.close();
+                });
+            }
+
+            //修改状态
+            function set_statu(obj){
+                var url = $(obj).attr('data-url');
+                var id  = $(obj).attr('data-id');
+                show_loading();
+                $.ajax({
+                    url:url,
+                    type:'post',
+                    dataType:'json',
+                    data:{id:id},
+                    success:function(data){
+                        close_loading(data.error,data.status);
+                    }
+                });
+            }
+            //获取远程文章分类
+            function getSort(){
+                var url = '{:U("Article/getArticleType")}';
+                var id  = 1;
+                show_loading();
+                $.ajax({
+                    url:url,
+                    type:'post',
+                    dataType:'json',
+                    data:{id:id},
+                    success:function(data){
+                        close_loading(data.error,data.status);
+                    }
+                });
+            }
+            //iframe层
+             function editType(obj)
+             {
+                 layer.open({
+                     type: 2,
+                     title: '文章分类修改',
+                     shadeClose: true,
+                     shade: 0.8,
+                     area: ['60%', '40%'],
+                     content: '__ROOT__/index.php?s=/Home/NurseArticle/nurseArticleTypeEdit/id/'+obj //iframe的url
+                 });
+             }
+
+        </script>
+        <include file="Public/Public_footer" />

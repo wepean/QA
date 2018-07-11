@@ -1,0 +1,121 @@
+<include file="Public/Public_header" />
+<link href="__PUBLIC__/Css/jquery.datetimepicker.css" rel="stylesheet" type="text/css"/>
+<script src="__PUBLIC__/Js/jquery.datetimepicker.js" type="text/javascript"></script>
+<div class="page-container">
+    <include file="Public/Public_left" />
+    <div class="page-content-wrapper">
+        <div class="page-content">
+            <ul class="box">
+            	<h2 class="box_tit">机器人学习日志</h2>
+                <div class="box_con col8 fn-clear">
+                    <ul class="cate_tit fn-clear" style="margin-bottom: 1px;">
+                            <form id="search-form2" class="navbar-form form-inline layui-form"  method="post">
+                            <div class="form-group">
+                                <label  class="control-label">问题ID：<label>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input  style="width:90px;" type="text" class="form-control" id="questionsId" placeholder="问题ID" value="<if condition='!empty($qid)'>{$qid}</if>" name="questionsId">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input placeholder="请选择开始时间"   type="text" class="form-control" id ="start_time" name="start_time"  <if condition="! empty($startTime)">value="{$startTime}"</if> readonly>
+                               </div>
+                            </div>
+                                <div class="form-group">
+                                    <div class="input-group">--</div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                     <input placeholder="请选择结束时间"   type="text" class="form-control" id ="end_time" name="end_time"  <if condition="!empty($endTime)">value="{$endTime}"</if> readonly>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                <label class="btn btn-primary" onclick="adsubmit()" ><i class="fa fa-search"></i> 搜索</label>
+                            </div>
+                                <div class="form-group">
+                                    <label  class="control-label">分类查询：<label>
+                                </div>
+                                <div class="form-group">
+                                    <select class="form-control"   name="answer_sort" id="answer-sort" onchange="changes(this)">
+                                        <option value="1">全部</option>
+                                        <option value="2" <if condition='!empty($oid) && $oid eq "2"'>selected</if>>成功</option>
+                                        <option value="3" <if condition='!empty($oid) && $oid eq "3"'>selected</if>>失败</option>                     
+                                    </select>
+                                </div>
+                        </form>
+                    </ul>
+         
+                    <ul class="cate_tit fn-clear" style="font-weight: bold">            
+                        <li style="width:6%">ID</li>
+						   <li style="width:6%">问题ID</li>
+                        <li style="width:40%">问题</li>
+                        <li>答案状态</li>
+                        <li>学习时间</li> 
+                        <li>返回信息</li>						
+                        <li>来源</li>
+                    </ul>
+                    <foreach name="rres" item="list">
+                    <div class="cate_item fn-clear">
+                        <p style="width:6%">{$list['id']}</p>
+                        <p style="width:6%">{$list['question_id']}</p>
+                        <p  style="color: #00a0e9;width:40%">
+                        <if condition="$list['question_title']">{$list['question_title']} <else/>--</if>
+                        </p>
+                        <p>
+                            <img style="margin-top: 20px;" width="25" height="25" src="__PUBLIC__/Images/<php> echo ($list['contents_status'] == 1)  ? 'yes' : 'cancel';</php>.png" >
+                        </p>
+                        <p>{$list['add_time']|date="Y-m-d H:i",###}</p>
+                        <p><if condition="$list['msg']">{$list['msg']}<else/>--</if></p>
+                        <p><if condition="$list['origins']">{$list['origins']}<else/>--</if></p>
+                    </div>
+                    </foreach>
+              
+                    <div class="page fn-clear">
+                        {$page}
+                    </div>
+                </div> 
+            </div>
+        </div>
+
+        <script>
+            //搜索提交
+            function adsubmit()
+            {
+                var starttime = $.trim($('#questionsId').val());
+                var r         = /^[0-9]*[1-9][0-9]*$/;　　//正整数
+                //验证
+                if (starttime == '' && $.trim($('input[name=start_time]').val()) == '' && $.trim($('input[name=end_time]').val()) == '')
+                {
+                    show_messages('请输入搜索条件！');
+                    return false;
+                }
+                if (!r.test(starttime)  && starttime != '')
+                {
+                    show_messages('问题ID必须为整数！');
+                    $('#questionsId').focus();
+                    return false;
+                }
+
+                if($.trim($('input[name=start_time]').val())>$.trim($('input[name=end_time]').val())){
+                    show_messages('开始时间不能大于结束时间！');
+                    return false;
+                }
+                $('#search-form2').submit();
+            }
+           
+            function changes(obj)
+            {
+                var id=obj.value;
+                document.location.href = '__ROOT__/index.php?s=/Home/Robot/studyLog/lid/{$lid}/oid/'+id;
+            }
+
+            $('#start_time,#end_time').datetimepicker({
+                lang:'ch',
+                timepicker:true,
+                format:'Y-m-d H:i'
+            });
+        </script>
+        <include file="Public/Public_footer" />

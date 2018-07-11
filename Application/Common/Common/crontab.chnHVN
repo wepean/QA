@@ -1,0 +1,5 @@
+// 机器人学习定时任务
+# 机器人 知识咨询问题学习
+30 23 * * * curl --connect-timeout 90 -m 600 "http://elk.dooland.com/index.php?s=/Robot/index/robotStudy"
+# 机器人 文献咨询问题 学习
+1 */2 * * * curl --connect-timeout 90 -m 600 "http://elk.dooland.com/index.php?s=/Robot/index/robotStudyMagBook"

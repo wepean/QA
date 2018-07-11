@@ -1,0 +1,180 @@
+<include file="Public/Public_header" />
+<div class="page-container">
+    <include file="Public/Public_left" />
+    <div class="page-content-wrapper">
+        <div class="page-content">
+            <div class="box">
+            	<h2 class="box_tit">批量添加问题</h2>
+                <div class="box_con col8 fn-clear">
+                    <div class="container-narrow">
+                        <div class="pull-left" style="margin:5px 10px 5px 5px">
+                            <button class="add layui-btn layui-btn-danger" id="btnDel">删除问题</button>
+                        </div>
+                        <div class="pull-left" style="margin:5px 10px 5px 10px">
+                            <button class="add layui-btn layui-btn-normal" id="btnAdd">添加问题</button>
+                        </div>
+                        <div class="pull-right" style="margin:5px 10px 5px 10px">
+                            <button class="add layui-btn " onclick="uploads();">批量导入问题</button>
+                        </div>
+                        <form  method="post" id="form1">
+                            <input type="hidden" name="TOKEN" value="{:session('TOKEN')}">
+                            <table class="table table-bordered table-striped table-hover" id="tablePxe">
+                            <thead>
+                            <tr>
+                                <th style="width:3%"><input id="checkAll" type="checkbox"></th>
+                                <th style="width:45%">问题(question_title)</th>
+                                <th style="width:35%">问题描述(description)</th>
+                                <th>问题所属分类(type)</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                        </form>
+                        <div class="pull-right">
+                            <a class="btn btn-primary" href="#" id="send">提交</a>
+                        </div>
+
+                </div> 
+            </div>
+        </div>
+        <script type="text/javascript">
+
+            //iframe层
+            function uploads()
+            {
+                document.location.href = '{:U("Questions/questionsImport?uid=a")}';
+            }
+
+            $(document).ready(function() {
+
+                var reg = /,$/gi;
+                // 添加设备点击事件
+                $("#btnAdd").bind('click', function(e) {
+                    $("#tablePxe tbody").append('<tr><td><input type="checkbox"></td><td><input type="text" name="question_title[]" class="layui-input" style="width:100%"></td><td><input type="text" name="description[]" style="width:100%" class="layui-input"></td><td>{$typeInfo}</td></tr>');
+                });
+                // 删除设备点击事件
+                $("#btnDel").bind('click', function(e) {
+                    $("#tablePxe tbody :checkbox:checked").each(function(index, element) {
+                        $(this).closest("tr").remove();
+                    });
+                });
+                // 全选框点击事件
+                $("#checkAll").bind('click', function(e) {
+                    var choose=$(":checkbox", $("#tablePxe tbody")).prop('checked');
+                    if (choose){
+                        $(":checkbox", $("#tablePxe tbody")).removeProp('checked');
+                        choose=$(":checkbox", $("#tablePxe tbody")).prop('checked');
+                    }else{
+                        $(":checkbox", $("#tablePxe tbody")).prop('checked', true);
+                        choose=$(":checkbox", $("#tablePxe tbody")).prop('checked');
+                    }
+                    $(":checkbox", $("#tablePxe tbody")).attr('checked', this.checked);
+                });
+
+
+
+                // 提交按钮
+                $("#send").bind('click', function(e) {
+                    e.preventDefault(); // 阻止默认
+                    // 提交按钮样式
+                    $(this).addClass("disabled").attr("disabled", "disabled");
+                    // IE跨域请求
+                    submitData($(this), '', getTable($("#tablePxe")));
+
+                });
+
+                // 获取列表JSON
+
+                function getTable($table) {
+                    if ($("tbody tr", $table).html()) {
+                        var tableArray = [],
+                                trString = '',
+                                tableString = '';
+                        $("tbody tr", $table).each(function(index, element) {
+                            trString = '{';
+                            $(":text", $(this)).each(function(indexTd, element) {
+                                if ($(this).val()) {
+                                    trString += '"' + this.name + '":"' + $(this).val() + '",';
+                                } else {
+                                    show_messages('第' + (index + 1) + '行，第' + (indexTd + 1) + '列的 [ ' + this.name + ' ] 为空，请输入！');
+                                    trString = '';
+                                    return false;
+                                }
+                            });
+                            if (trString) {
+                                tableArray.push(trString.replace(reg, "}"));
+                            } else {
+                                return false;
+                            }
+                        });
+                        if (trString) {
+                            $('#form1').submit();
+                           /* tableString = '[' + tableArray.join(',') + ']';
+                            return tableString;*/
+                        } else {
+                            return '';
+                        }
+                    } else {
+                        show_messages('问题不能为空，请添加分类（点击添加问题按钮）！');
+                    }
+                }
+
+
+
+                // IE跨域请求实现
+
+                function createXHR() {
+                    if (typeof XMLHttpRequest != "undefined") {
+                        return new XMLHttpRequest();
+                    } else if (typeof ActiveXObject != "undefined") {
+                        if (typeof arguments.callee.activeXString != "string") {
+                            var versions = ["MSXML2.XMLHttp.6.0", "MSXML2.XMLHttp.3.0", "MSXML2.XMLHttp"],
+                                    i, len;
+
+                            for (i = 0, len = versions.length; i < len; i++) {
+                                try {
+                                    var xhr = new ActiveXObject(versions[i]);
+                                    arguments.callee.activeXString = versions[i];
+                                    return xhr;
+                                } catch (ex) {
+                                    //skip
+                                }
+                            }
+                        }
+
+                        return new ActiveXObject(arguments.callee.activeXString);
+                    } else {
+                        throw new Error("No XHR object available.");
+                    }
+                }
+
+                function submitData($btn, formUrl, formJson) {
+                    var xhr = createXHR();
+                    xhr.onreadystatechange = function(event) {
+                        if (xhr.readyState == 4) {
+                            // 提交按钮样式
+                            $btn.removeClass("disabled").removeAttr("disabled");
+                            if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304) {
+                                show_messages(xhr.responseText);
+                            } else {
+                                show_messages("Request was unsuccessful: " + xhr.status);
+                            }
+                        }
+                    };
+
+                    xhr.open("post", formUrl, true);
+                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                    if (formJson) {
+                        xhr.send(formJson)
+                    } else {
+                        // 提交按钮样式
+                        $btn.removeClass("disabled").removeAttr("disabled");
+                    }
+                }
+                // end-----IE跨域请求实现
+
+            });
+        </script>
+        <include file="Public/Public_footer" />

@@ -1,0 +1,93 @@
+<include file="Public/Public_header" />
+<div class="page-container">
+    <include file="Public/Public_left" />
+    <style type="text/css">
+        .layui-form-switch,#sets{width:55px;border-radius:25px;}
+    </style>
+    <div class="page-content-wrapper">
+        <div class="page-content-wrapper">
+            <div class="page-content">
+                <ul class="box">
+                    <h2 class="box_tit">机器人自学</h2>
+                    <div class="box_con col8 fn-clear">
+                        <form id="search-form2" class=" navbar-form form-inline layui-form" method="post">
+                        <ul class="cate_tit fn-clear" style="margin-bottom: 1px;">
+
+                            <div class="form-group">
+                                <label  class="control-label">&nbsp;&nbsp;杂志与图书版开关：<label>
+                            </div>
+                            <div class="form-group" id="form-groups">
+                             <input  name="open" lay-skin="switch" lay-filter="switchTest" lay-text="开|关"  type="checkbox" <if condition="$statu eq 1"> checked="" </if>>
+                            </div>
+                        </ul>
+                            <ul class="cate_tit fn-clear" style="margin-bottom: 1px;">
+                                <div class="form-group">
+                                    <label  class="control-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;文章版开关：<label>
+                                </div>
+                                <div class="form-group" id="form-groups">
+                                    <input  name="open" lay-skin="switch" lay-filter="switchTesti" lay-text="开|关"  type="checkbox" <if condition="$statui eq 1"> checked="" </if>>
+                                </div>
+                            </ul>
+                        </form>
+                    </div>
+            </div>
+        </div>
+
+            <script src="__PUBLIC__/layui/layui.js" charset="utf-8"></script>
+            <script type="text/javascript">
+                layui.use(['form'], function(){
+                    var form = layui.form;
+                    var url  = '{:U("Robot/robotSet")}';
+                    var urli = '{:U("Robot/robotSeti")}';
+                    //监听指定开关
+                    form.on('switch(switchTest)', function(data){
+                        var parms = this.checked;
+                        if (parms){
+                            str   = '温馨提示：杂志与图书版机器人自学程序已经成功启动（自学说明：每2个小时会自学一次）;';
+                            times = 5000;
+                            sets  = 1;
+                        }else{
+                            str   = '温馨提示：杂志与图书版机器人自学程序成功关闭！';
+                            times = 3000;
+                            sets  = "-1";
+                        }
+                        $.ajax({
+                            url:url,
+                            type:'post',
+                            dataType:'json',
+                            data:{sets:sets},
+                            success:function(datas){
+                                layer.tips(str,data.othis,{time: times});
+                            }
+                        });
+
+                    });
+
+                    //监听指定开关
+                    form.on('switch(switchTesti)', function(data){
+                        var parmsi = this.checked;
+                        if (parmsi){
+                            str   = '温馨提示：文章版机器人自学程序已经成功启动（自学说明：每2个小时会自学一次）;';
+                            times = 5000;
+                            sets  = 1;
+                        }else{
+                            str   = '温馨提示：文章版机器人自学程序成功关闭！';
+                            times = 3000;
+                            sets  = "-1";
+                        }
+                        $.ajax({
+                            url:urli,
+                            type:'post',
+                            dataType:'json',
+                            data:{sets:sets},
+                            success:function(datas){
+                                layer.tips(str,data.othis,{time: times});
+                            }
+                        });
+
+                    });
+
+                });
+
+            </script>
+            <include file="Public/Public_footer" />

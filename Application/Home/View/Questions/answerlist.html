@@ -1,0 +1,109 @@
+<include file="Public/Public_header" />
+<div class="page-container">
+    <include file="Public/Public_left" />
+    <div class="page-content-wrapper">
+        <div class="page-content">
+
+            <div class="box">
+            	<h2 class="box_tit"><a href="{:U('Questions/questionsAdd')}" class="add_btn">添加问题</a>答案列表</h2>
+                <div class="box_con col8 fn-clear">	
+                    <ul class="cate_tit fn-clear">
+                        <li style="width:6%">ID</li>
+                        <li style="width:14%">答案</li>
+                        <li >描述</li>
+                        <li>添加时间</li>
+                        <li>添加人</li>
+                        <li>所属分类</li>
+                        <li style="width:8%">是否新添</li>
+                        <li style="width:8%">启用状态</li>
+                        <li>操作</li>
+                    </ul>
+                    <foreach name="admin_list" item="list">
+                    <div class="cate_item fn-clear" id="admin_list_{$list['id']}">
+                        <p style="width:6%">{$list['id']}</p>
+                        <p onclick="editType({$list['id']})" style="color: #00a0e9;width:14%">{$list['question_title']}</p>
+                        <p onclick="editType({$list['id']})" style="color: #00a0e9;">{$list['description']}</p>
+                        <p>{$list['add_time']|date="Y-m-d H:i",###}</p>
+                        <p>{$list['admin_id']}</p>
+                        <p>{$list['type_id']}</p>
+                        <p style="width:8%">
+                            <img width="25" height="25" src="__PUBLIC__/Images/<php> echo ($list['is_new'] == 1)  ? 'yes' : 'cancel';</php>.png" >
+                        </p>
+                        <p style="width:8%">
+                            <img width="25" height="25" src="__PUBLIC__/Images/<php> echo ($list['status'] == 1)  ? 'yes' : 'cancel';</php>.png" >
+                        </p>
+                        <p class="last">
+                                <if condition="$list['status'] eq 1">
+                                    <button type="button"  data-id="{$list['id']}" data-num='200' data-url="__ROOT__/index.php?s=/Home/Questions/questionsStatus/id/{$list['id']}" onclick="set_statu(this)" class="btn btn-default" >禁用</button>
+                                    <else />
+                                    <button type="button"  data-id="{$list['id']}" data-num='200' data-url="__ROOT__/index.php?s=/Home/Questions/questionsStatus/id/{$list['id']}" onclick="set_statu(this)" class="btn btn-success" >启用</button>
+                                    </if>
+                            <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="编辑" onclick="editType({$list['id']})"><i class="fa fa-pencil"></i></a>
+                            <a class="btn btn-danger" href="javascript:void(0)" data-url="__ROOT__/index.php?s=/Home/Questions/questionsDel/id/{$list['id']}" data-id="{$list['id']}" onclick="delfun(this)"><i class="fa fa-trash-o"></i></a>
+                        </p>
+                    </div>
+                    </foreach>
+                    <div class="page fn-clear">
+                        {$page}
+                    </div>
+                </div> 
+            </div>
+        </div>
+        <script>
+            //删除
+            function delfun(obj){
+                var url = $(obj).attr('data-url');
+                var id  = $(obj).attr('data-id');
+                layer.confirm('确定删除此答案？', {
+                    btn: ['确定','取消']
+                }, function(){
+                    $.ajax({
+                        url:url,
+                        type:'post',
+                        dataType:'json',
+                        data:{id:id},
+                        success:function(data){
+                            layer.msg(data.error, {icon: 1},function(){
+                                if(data.status == '1'){
+                                    $('#admin_list_'+id).remove();
+                                }
+                            });
+                        }
+                    });
+                }, function(){
+                    layer.close();
+                });
+            }
+
+            function set_statu(obj){
+               var url = $(obj).attr('data-url');
+                var id  = $(obj).attr('data-id');
+                $.ajax({
+                    url:url,
+                    type:'post',
+                    dataType:'json',
+                    data:{id:id},
+                    success:function(data){
+                        layer.msg(data.error, {icon: 1},function(){
+                            if(data.status == '1'){
+                                location.reload();
+                            }
+                        });
+                    }
+                });
+
+            }
+            //iframe层
+         function editType(obj)
+         {
+             layer.open({
+                 type: 2,
+                 title: '答案修改',
+                 shadeClose: true,
+                 shade: 0.8,
+                 area: ['65%', '45%'],
+                 content: '__ROOT__/index.php?s=/Home/Questions/questionsEdit/id/'+obj //iframe的url
+             });
+         }
+        </script>
+        <include file="Public/Public_footer" />

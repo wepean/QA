@@ -1,0 +1,204 @@
+[ 2018-03-06T11:17:16+08:00 ] 127.0.0.1 /qa/index.php?s=/Home/Questions/questionsEdit/id/7
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `qa_question_list` [ RunTime:0.0080s ]
+SQL: SELECT * FROM `qa_question_list` WHERE ( id=7 ) LIMIT 1   [ RunTime:0.0010s ]
+SQL: SHOW COLUMNS FROM `qa_question_type` [ RunTime:0.0070s ]
+SQL: SELECT `id`,`type_name` FROM `qa_question_type` WHERE ( status=1 ) ORDER BY id desc  [ RunTime:0.0000s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.008001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.008001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2018-03-06T17:25:08+08:00 ] 127.0.0.1 /qa/index.php?s=/Home/Questions/questionsAdd.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `qa_question_type` [ RunTime:0.0320s ]
+SQL: SELECT `id`,`type_name` FROM `qa_question_type` WHERE ( status=1 )  [ RunTime:0.0000s ]
+NOTIC: [8] Undefined variable: strings E:\phpStudy\PHPTutorial\WWW\QA\Application\Home\Controller\QuestionsController.class.php 第 97 行.
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.001000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001000s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.017001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.017001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2018-03-06T17:25:10+08:00 ] 127.0.0.1 /qa/index.php?s=/Home/Questions/questionsAdd.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001001s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `qa_question_type` [ RunTime:0.0050s ]
+SQL: SELECT `id`,`type_name` FROM `qa_question_type` WHERE ( status=1 )  [ RunTime:0.0010s ]
+NOTIC: [8] Undefined variable: strings E:\phpStudy\PHPTutorial\WWW\QA\Application\Home\Controller\QuestionsController.class.php 第 97 行.
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.011001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.011001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2018-03-06T17:25:12+08:00 ] 127.0.0.1 /qa/index.php?s=/Home/Questions/typeList.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `qa_question_type` [ RunTime:0.0060s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `qa_question_type` LIMIT 1   [ RunTime:0.0010s ]
+NOTIC: [8] Undefined variable: prePage E:\phpStudy\PHPTutorial\WWW\QA\ThinkPHP\Library\Org\Util\Page.class.php 第 684 行.
+NOTIC: [8] Undefined variable: nextPage E:\phpStudy\PHPTutorial\WWW\QA\ThinkPHP\Library\Org\Util\Page.class.php 第 684 行.
+SQL: SELECT `id`,`type_name`,`description`,`add_time`,`status`,`is_new`,`admin_id` FROM `qa_question_type` ORDER BY id desc LIMIT 0,20   [ RunTime:0.0000s ]
+SQL: SHOW COLUMNS FROM `qa_admin` [ RunTime:0.0450s ]
+SQL: SELECT `tname` FROM `qa_admin` WHERE ( id=1 ) LIMIT 1   [ RunTime:0.0010s ]
+SQL: SELECT `tname` FROM `qa_admin` WHERE ( id=1 ) LIMIT 1   [ RunTime:0.0010s ]
+SQL: SELECT `tname` FROM `qa_admin` WHERE ( id=1 ) LIMIT 1   [ RunTime:0.0000s ]
+SQL: SELECT `tname` FROM `qa_admin` WHERE ( id=1 ) LIMIT 1   [ RunTime:0.0000s ]
+SQL: SELECT `tname` FROM `qa_admin` WHERE ( id=1 ) LIMIT 1   [ RunTime:0.0010s ]
+SQL: SELECT `tname` FROM `qa_admin` WHERE ( id=1 ) LIMIT 1   [ RunTime:0.0000s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.011000s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.011000s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2018-03-06T17:25:13+08:00 ] 127.0.0.1 /qa/index.php?s=/Home/Questions/answerList.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `qa_question_list` [ RunTime:0.0130s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `qa_question_list` LIMIT 1   [ RunTime:0.0000s ]
+NOTIC: [8] Undefined variable: prePage E:\phpStudy\PHPTutorial\WWW\QA\ThinkPHP\Library\Org\Util\Page.class.php 第 684 行.
+NOTIC: [8] Undefined variable: nextPage E:\phpStudy\PHPTutorial\WWW\QA\ThinkPHP\Library\Org\Util\Page.class.php 第 684 行.
+SQL: SELECT `id`,`question_title`,`description`,`add_time`,`status`,`is_new`,`admin_id`,`type_id` FROM `qa_question_list` ORDER BY id desc LIMIT 0,20   [ RunTime:0.0000s ]
+SQL: SHOW COLUMNS FROM `qa_admin` [ RunTime:0.0050s ]
+SQL: SELECT `tname` FROM `qa_admin` WHERE ( id=1 ) LIMIT 1   [ RunTime:0.0000s ]
+SQL: SHOW COLUMNS FROM `qa_question_type` [ RunTime:0.0050s ]
+SQL: SELECT `type_name` FROM `qa_question_type` WHERE ( id=15 ) LIMIT 1   [ RunTime:0.0010s ]
+SQL: SELECT `tname` FROM `qa_admin` WHERE ( id=1 ) LIMIT 1   [ RunTime:0.0000s ]
+SQL: SELECT `type_name` FROM `qa_question_type` WHERE ( id=13 ) LIMIT 1   [ RunTime:0.0000s ]
+SQL: SELECT `tname` FROM `qa_admin` WHERE ( id=1 ) LIMIT 1   [ RunTime:0.0010s ]
+SQL: SELECT `type_name` FROM `qa_question_type` WHERE ( id=3 ) LIMIT 1   [ RunTime:0.0000s ]
+SQL: SELECT `tname` FROM `qa_admin` WHERE ( id=1 ) LIMIT 1   [ RunTime:0.0000s ]
+SQL: SELECT `type_name` FROM `qa_question_type` WHERE ( id=3 ) LIMIT 1   [ RunTime:0.0010s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.023001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.023001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2018-03-06T17:25:14+08:00 ] 127.0.0.1 /qa/index.php?s=/Home/Questions/typeList.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `qa_question_type` [ RunTime:0.0050s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `qa_question_type` LIMIT 1   [ RunTime:0.0010s ]
+NOTIC: [8] Undefined variable: prePage E:\phpStudy\PHPTutorial\WWW\QA\ThinkPHP\Library\Org\Util\Page.class.php 第 684 行.
+NOTIC: [8] Undefined variable: nextPage E:\phpStudy\PHPTutorial\WWW\QA\ThinkPHP\Library\Org\Util\Page.class.php 第 684 行.
+SQL: SELECT `id`,`type_name`,`description`,`add_time`,`status`,`is_new`,`admin_id` FROM `qa_question_type` ORDER BY id desc LIMIT 0,20   [ RunTime:0.0000s ]
+SQL: SHOW COLUMNS FROM `qa_admin` [ RunTime:0.0060s ]
+SQL: SELECT `tname` FROM `qa_admin` WHERE ( id=1 ) LIMIT 1   [ RunTime:0.0000s ]
+SQL: SELECT `tname` FROM `qa_admin` WHERE ( id=1 ) LIMIT 1   [ RunTime:0.0000s ]
+SQL: SELECT `tname` FROM `qa_admin` WHERE ( id=1 ) LIMIT 1   [ RunTime:0.0010s ]
+SQL: SELECT `tname` FROM `qa_admin` WHERE ( id=1 ) LIMIT 1   [ RunTime:0.0000s ]
+SQL: SELECT `tname` FROM `qa_admin` WHERE ( id=1 ) LIMIT 1   [ RunTime:0.0000s ]
+SQL: SELECT `tname` FROM `qa_admin` WHERE ( id=1 ) LIMIT 1   [ RunTime:0.0000s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.010001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.010001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000000s ]
+
+[ 2018-03-06T17:25:15+08:00 ] 127.0.0.1 /qa/index.php?s=/Home/Questions/questionsList.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `qa_question_list` [ RunTime:0.0060s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `qa_question_list` LIMIT 1   [ RunTime:0.0000s ]
+NOTIC: [8] Undefined variable: prePage E:\phpStudy\PHPTutorial\WWW\QA\ThinkPHP\Library\Org\Util\Page.class.php 第 684 行.
+NOTIC: [8] Undefined variable: nextPage E:\phpStudy\PHPTutorial\WWW\QA\ThinkPHP\Library\Org\Util\Page.class.php 第 684 行.
+SQL: SELECT `id`,`question_title`,`description`,`add_time`,`status`,`is_new`,`admin_id`,`type_id` FROM `qa_question_list` ORDER BY id desc LIMIT 0,20   [ RunTime:0.0000s ]
+SQL: SHOW COLUMNS FROM `qa_admin` [ RunTime:0.0060s ]
+SQL: SELECT `tname` FROM `qa_admin` WHERE ( id=1 ) LIMIT 1   [ RunTime:0.0010s ]
+SQL: SHOW COLUMNS FROM `qa_question_type` [ RunTime:0.0070s ]
+SQL: SELECT `type_name` FROM `qa_question_type` WHERE ( id=15 ) LIMIT 1   [ RunTime:0.0010s ]
+SQL: SELECT `tname` FROM `qa_admin` WHERE ( id=1 ) LIMIT 1   [ RunTime:0.0000s ]
+SQL: SELECT `type_name` FROM `qa_question_type` WHERE ( id=13 ) LIMIT 1   [ RunTime:0.0010s ]
+SQL: SELECT `tname` FROM `qa_admin` WHERE ( id=1 ) LIMIT 1   [ RunTime:0.0010s ]
+SQL: SELECT `type_name` FROM `qa_question_type` WHERE ( id=3 ) LIMIT 1   [ RunTime:0.0000s ]
+SQL: SELECT `tname` FROM `qa_admin` WHERE ( id=1 ) LIMIT 1   [ RunTime:0.0000s ]
+SQL: SELECT `type_name` FROM `qa_question_type` WHERE ( id=3 ) LIMIT 1   [ RunTime:0.0010s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.010001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.010001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+

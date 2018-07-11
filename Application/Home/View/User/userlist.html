@@ -1,0 +1,94 @@
+<include file="Public/Public_header" />
+<div class="page-container">
+    <include file="Public/Public_left" />
+    <div class="page-content-wrapper">
+        <div class="page-content">
+
+            <div class="box">
+            	<h2 class="box_tit"><a href="__ROOT__/index.php?s=/Home/User/userAdd" class="add_btn">添加用户</a>用户列表</h2>
+                <div class="box_con col8 fn-clear">	
+                    <ul class="cate_tit fn-clear">
+                        <li>ID</li>
+                        <li>登录名</li>
+                        <li>真实姓名</li>
+                        <li>邮箱</li>
+                        <li>最近一次登录</li>
+                        <li>启用状态</li>
+                        <li>操作</li>
+                    </ul>
+
+                    <foreach name="admin_list" item="list">
+                    <div class="cate_item fn-clear" id="admin_list_{$list['id']}">
+                        <p>{$list['id']}</p>
+                        <p>{$list['uname']}</p>
+                        <p>{$list['tname']}</p>
+                        <p>{$list['email']}</p>
+                        <p><if condition="$list['logintime'] neq 0">{$list['logintime']|date='Y-m-d H:i',###}<else/>---</if></p>
+                        <p>
+                            <img width="25" height="25" src="__PUBLIC__/Images/<php> echo ($list['status'] == 1)  ? 'yes' : 'cancel';</php>.png" >
+                        </p>
+                        <p class="last">
+                            <if condition="$userid neq $list['id']">
+                                <if condition="$list['status'] eq 1">
+                                    <button type="button"  data-id="{$list['id']}" data-num='200' data-url="__ROOT__/index.php?s=/Home/User/userStatus/id/{$list['id']}" onclick="set_statu(this)" class="btn btn-default" >禁用</button>
+                                    <else />
+                                    <button type="button"  data-id="{$list['id']}" data-num='200' data-url="__ROOT__/index.php?s=/Home/User/userStatus/id/{$list['id']}" onclick="set_statu(this)" class="btn btn-success" >启用</button>
+                                    </if>
+                            <a class="btn btn-danger" href="javascript:void(0)" data-url="__ROOT__/index.php?s=/Home/User/userDel/id/{$list['id']}" data-id="{$list['id']}" onclick="delfun(this)"><i class="fa fa-trash-o"></i></a>
+                            <else/>
+                                ---
+                            </if>
+                        </p>
+                    </div>
+                    </foreach>
+                    <div class="page fn-clear">
+                        {$page}
+                    </div>
+                </div> 
+            </div>
+        </div>
+        <script src="__PUBLIC__/layer/layer.js"></script>
+        <script>
+            //删除
+            function delfun(obj){
+                var url = $(obj).attr('data-url');
+                var id  = $(obj).attr('data-id');
+                layer.confirm('确定删除此用户？', {
+                    btn: ['确定','取消']
+                }, function(){
+                    $.ajax({
+                        url:url,
+                        type:'post',
+                        dataType:'json',
+                        data:{id:id},
+                        success:function(data){
+                            if(data.status == '1'){
+                                $('#admin_list_'+id).remove();
+                            }
+                            layer.msg(data.error, {icon: 1});
+                        }
+                    });
+                }, function(){
+                    layer.close();
+                });
+            }
+
+            function set_statu(obj){
+               var url = $(obj).attr('data-url');
+                var id  = $(obj).attr('data-id');
+                $.ajax({
+                    url:url,
+                    type:'post',
+                    dataType:'json',
+                    data:{id:id},
+                    success:function(data){
+                        if(data.status == '1'){
+                            location.reload();
+                        }
+                        layer.msg(data.error, {icon: 1});
+                    }
+                });
+
+            }
+        </script>
+        <include file="Public/Public_footer" />

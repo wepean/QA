@@ -1,0 +1,76 @@
+</div>
+</div>
+<!-- BEGIN FOOTER -->
+<div class="footer">
+    <div class="footer-inner">
+        2018~2030 © 华阅QA管理系统
+    </div>
+    <div class="footer-tools">
+		<span class="go-top">
+			<i class="fa fa-angle-up"></i>
+		</span>
+    </div>
+</div>
+<!-- END FOOTER -->
+<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+<!-- BEGIN CORE PLUGINS -->
+<!--[if lt IE 9]>
+<script src="__Assets__/plugins/respond.min.js"></script>
+<![endif]-->
+
+<!-- IMPORTANT! Load jquery-ui-1.10.3.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+<script src="__PUBLIC__/Plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+<!-- END CORE PLUGINS -->
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+<script src="__PUBLIC__/Plugins/jqvmap/jqvmap/jquery.vmap.js" type="text/javascript"></script>
+<!-- END PAGE LEVEL PLUGINS -->
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
+<script src="__PUBLIC__/Scripts/core/app.js" type="text/javascript"></script>
+<!-- END PAGE LEVEL SCRIPTS -->
+<script src="__PUBLIC__/Plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        <!--左侧菜单-->
+        $(".sub-menu li").each(function() {
+            var this_url = $(this).find("a").attr("href");
+            var partName = window.document.location.pathname;
+            var searchName = window.location.search;
+            var cur_url = partName + searchName;
+            if(this_url == cur_url){
+                $(this).parents("li").addClass("active");
+                $(this).parent("ul").siblings("a").find("span.arrow")
+                        .addClass("open").append("<span class='selected'></span>");
+                $(this).addClass("active");
+                $(this).siblings("li").removeClass("active");
+            }
+        });
+
+        <!--添加推荐tab切换-->
+        $(".sel").each(function() {
+            $("#title li").first().addClass("current");
+            $("#title li").parent("ul").next(".details").show();
+            $(".sel #title li").click(function(){
+                $(this).addClass("current");
+                $(this).siblings("li").removeClass("current");
+                if($(this).hasClass("current")){
+                    $(this).parent("ul").siblings(".details").hide();
+                    var index = $(this).index("#title>li");
+                    $(this).parent("ul").siblings("div.details:eq("+index+")").show();
+                }else{
+                    $("#title li").first().addClass("current");
+                    $("#title li").parent("ul").next(".details").show();
+                }
+            });
+        });
+
+
+        App.init(); // initlayout and core plugins
+
+    });
+</script>
+<script src="__PUBLIC__/Js/common.js" type="text/javascript"></script>
+<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>

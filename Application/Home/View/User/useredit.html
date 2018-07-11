@@ -1,0 +1,98 @@
+<include file="Public/Public_header" />
+<div class="page-container">
+
+    <include file="Public/Public_left" />
+    <div class="page-content-wrapper">
+        <div class="page-content">
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="portlet box red" >
+			<div class="portlet-title" style="background-color: #009688 !important;"><div class="caption"><i class="fa fa-reorder"></i>账户信息修改</div> </div>
+			<div class="portlet-body">
+				<div class="table-responsive">
+                 <form id="form01_userdata" class="form01" method="post" action="__ROOT__/index.php?s=/Home/User/userEdit">
+					    <table class="table table-bordered table-advance table-hover">
+                            <input name="id" type="hidden" value="{$adminInfo.id}">
+							<tr>
+                            <td style="text-align: right;width:30%;">登录账号</td>
+								<td><input class="layui-input" name="uname" type="text" size="40" maxlength="44" value="{$adminInfo.uname}" disabled></td>
+							</tr>
+							<tr>
+                           <td style="text-align: right;width:30%;">真实姓名</td>
+								<td><input class="layui-input" name="tname" type="text" size="40" maxlength="44" value="{$adminInfo.tname}" ></td>
+							</tr>
+                            <tr>
+                                <td style="text-align: right;">电子邮箱</td>
+                                <td><input class="layui-input"  name="email" type="text" size="40" maxlength="44"  autocomplete="off" value="{$adminInfo.email}"></td>
+                            </tr>
+                            <tr>
+                                <td class="inp02" colspan="2" style="padding-left:32%;vertical-align: middle;" height="90px">
+                                    <input type="submit" name="Submit" value="提 交" class="btn btn-primary">
+                                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                    <input type="reset" name="Resset" value="重 置">
+                                </td>
+                            </tr>                        
+					    </table>
+                    </form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="__PUBLIC__/Plugins/jquery-1.10.2.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/Plugins/jquery-validation/dist/jquery.validate.min.js" type="text/javascript"></script>
+<script>
+$('#form01_userdata').validate({
+        errorElement: 'span', //default input error message container
+        errorClass: 'help-block', // default input error message class
+        focusInvalid: false, // do not focus the last invalid input
+        rules: {
+            uname: {
+                required: true
+            },
+            tname: {
+                required: true
+            },
+            email: {
+                email:true
+            }
+        },
+
+        messages: {
+            uname: {
+                required: "账户名不能为空"
+            },
+            tname: {
+                required: "真实姓名不能为空"
+            },
+            email: {
+                email:"E-Mail格式不正确"
+            }
+        },
+
+        invalidHandler: function (event, validator) { //display error alert on form submit   
+            $('.alert-danger', $('.login-form')).show();
+        },
+
+        highlight: function (element) { // hightlight error inputs
+            $(element).closest('.form-group').addClass('has-error'); // set error class to the control group
+        },
+
+        success: function (label) {
+            label.closest('.form-group').removeClass('has-error');
+            label.remove();
+        },
+
+        /*errorPlacement: function (error, element) {
+            error.insertAfter(element.closest('.input-icon'));
+        },*/
+
+        submitHandler: function (form) {
+            form.submit(); // form validation success, call ajax form submit
+            //无刷新登录	               
+        }
+    });
+</script>
+<include file="Public/Public_footer" />

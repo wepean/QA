@@ -1,0 +1,141 @@
+<include file="Public/Public_header" />
+<div class="page-container">
+    <include file="Public/Public_left" />
+    <div class="page-content-wrapper">
+        <div class="page-content">
+            <div class="box">
+            	<h2 class="box_tit"><a href="{:U('NurseArticle/nurseArticleAdd')}" class="add_btn layui-btn-normal layui-btn-radius">添加文章</a>文章列表</h2>
+                <div class="box_con col8 fn-clear">
+                    <ul class="cate_tit fn-clear">
+                        <form id="search-form2" class="navbar-form form-inline"  method="post">
+                            <div class="form-group">
+                                <label  class="control-label">文章关键词：<label>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input  style="width:300px;" type="text" class="form-control" id="keywords" placeholder="文章名" value="<if condition='!empty($kyword)'>{$kyword}</if>" name="keywords">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="btn btn-primary" onclick="adsubmit()" ><i class="fa fa-search"></i> 搜索</label>
+                            </div>
+                        </form>
+                    </ul>
+                    <ul class="cate_tit fn-clear">
+                        <li>ID</li>
+                        <li>标题</li>
+                        <li>简介</li>
+						   <li>作者</li>
+						   <li>发布时间</li>
+                        <li>添加人</li>
+                        <li>状态</li>
+                        <li>操作</li>
+                    </ul>
+
+                    <foreach name="admin_list" item="list">
+                    <div class="cate_item fn-clear" id="admin_list_{$list['id']}">
+                        <p>{$list['id']}</p>
+                        <p onclick="editType({$list['id']})" style="color: #00a0e9;">{$list['title']}</p>
+                        <p>{$list['description']}</p>
+                        <p>{$list['author']}</p>
+                        <p>{$list['publish_time']}</p>
+                        <p><if condition="$list['admin_id']">{$list['admin_id']}<else />机器人</if></p>
+
+                        <p>
+                            <img width="25" height="25" src="__PUBLIC__/Images/<php> echo ($list['is_status'] == 1)  ? 'yes' : 'cancel';</php>.png" >
+                        </p>
+                        <p class="last">
+                            <if condition="$list['is_status'] eq 1">
+                                <button type="button"  data-id="{$list['id']}" data-num='200' data-url="__ROOT__/index.php?s=/Home/NurseArticle/nurseArticleStatus/id/{$list['id']}" onclick="set_statu(this)" class="btn btn-default" >禁用</button>
+                                <else />
+                                <button type="button"  data-id="{$list['id']}" data-num='200' data-url="__ROOT__/index.php?s=/Home/NurseArticle/nurseArticleStatus/id/{$list['id']}" onclick="set_statu(this)" class="btn btn-success" >启用</button>
+                             </if>
+                            <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="编辑" onclick="editType({$list['id']})"><i class="fa fa-pencil"></i></a>
+                            <a class="btn btn-danger" href="javascript:void(0)" data-url="__ROOT__/index.php?s=/Home/NurseArticle/nurseArticleDel/id/{$list['id']}" data-id="{$list['id']}" onclick="delfun(this)"><i class="fa fa-trash-o"></i></a>
+                        </p>
+                    </div>
+                    </foreach>
+                    <div class="page fn-clear">
+                        {$page}
+                    </div>
+                </div> 
+            </div>
+        </div>
+        <script>
+            //搜索提交
+            function adsubmit()
+            {
+                var keywords = $.trim($('input[name=keywords]').val());
+                //验证
+                if (keywords == '')
+                {
+                    show_messages('请输入搜索条件！');
+                    $('#keywords').focus();
+                    return false;
+                }
+
+                $('#search-form2').submit();
+            }
+            //删除
+            function delfun(obj){
+                var url = $(obj).attr('data-url');
+                var id  = $(obj).attr('data-id');
+                layer.confirm('确定删除此文章？', {
+                    btn: ['确定','取消']
+                }, function(){
+                    show_loading();
+                    $.ajax({
+                        url:url,
+                        type:'post',
+                        dataType:'json',
+                        data:{id:id},
+                        success:function(data){
+                            layer.msg(data.error, {icon: 1},function(){
+                                if(data.status == '1'){
+                                    $('#admin_list_'+id).remove();
+                                }
+                                layer.closeAll();
+                            });
+                        }
+                    });
+                }, function(){
+                    layer.close();
+                });
+            }
+
+            //修改状态
+            function set_statu(obj){
+                var url = $(obj).attr('data-url');
+                var id  = $(obj).attr('data-id');
+                show_loading();
+                $.ajax({
+                    url:url,
+                    type:'post',
+                    dataType:'json',
+                    data:{id:id},
+                    success:function(data){
+                        close_loading(data.error,data.status);
+                    }
+                });
+            }
+
+            //iframe层
+             function editType(obj)
+             {
+                 var url = '__ROOT__/index.php?s=/Home/NurseArticle/nurseArticleEdit/id/'+obj //iframe的url
+                       w = ($(window).width()*0.8);
+                       h = ($(window).height() - 50);
+                 layer.open({
+                     type: 2,
+                     area: [w+'px', h +'px'],
+                     fix: false,
+                     maxmin: true,
+                     shadeClose: true,
+                     shade:0.4,
+                     title: '文章修改',
+                     content: url
+                 });
+             }
+
+        </script>
+        <include file="Public/Public_footer" />

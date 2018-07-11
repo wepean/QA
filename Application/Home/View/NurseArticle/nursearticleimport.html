@@ -1,0 +1,80 @@
+<include file="Public/Public_header" />
+<div class="page-container">
+    <include file="Public/Public_left" />
+    <div class="page-content-wrapper">
+        <div class="page-content">
+        <div class="box">
+            <h2 class="box_tit">批量导入文章</h2>
+                <div class="box_con col8 fn-clear">
+                    <div class="container-narrow">
+                        <form  id="form1"  enctype="multipart/form-data" method="post" >
+                            <table class="table table-bordered table-striped table-hover" id="tablePxe">
+                            <tbody>
+                            <tr>
+                                <td style="width:20%">上传EXCEL文件:</td>
+                                <td style="width:40%">
+      <input  id="FileUpload" type="file" name="excelData" value=""/></td>
+                                <td colspan="2"> <a class="btn btn-primary" href="#" id="send">导入文章</a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        </form>
+                        <table class="table table-bordered table-striped table-hover"  style="margin-top: 10px;">
+                            <tbody>
+                            <tr>
+                                <td colspan="3" style="font-size: 14px;font-weight: bold">导入说明:</td>
+                            </tr>
+                            <tr>
+                                <th style="width:20%">上传文件最大值:</th>
+                                <th style="width:80%">25M</th>
+                            </tr>
+                            <tr>
+                                <th style="width:20%">文件格式:</th>
+                                <th style="width:80%">'xls', 'xlsx'</th>
+                            </tr>
+                            <tr>
+                                <th style="width:20%">注意事项:</th>
+                                <th>
+                                    <p><span style="color:red">* 护士笔记文章版</span>导航区：<span style="color:blue">标题、内容、作者</span>不能少</p>
+                                    <p><span style="color:red">* 护士笔记文章版</span>内容区：<span style="color:blue">标题、内容</span>不能为空</p>
+                                </th>
+                            </tr>
+                            <!--  <tr>
+                                <th colspan="2">
+                                  <p>实例图如下：</p>
+                                </th>
+                            </tr>
+                          <tr>
+                                <th colspan="2">
+                                   <img src="__ROOT__/Uploads/1521178957128084.png">
+                                </th>
+                            </tr>-->
+                            <tr>
+                                <th style="width:20%">模板文件下载:</th>
+                                <th style="width:80%;">
+
+                                    <a href="__ROOT__/Uploads/2018427.xlsx" style="color: #990000">  <i class="fa fa-folder-open glyphicon glyphicon-download-alt"></i>&nbsp;护士笔记文章版模板文件下载</a>
+                              </th>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                </div> 
+            </div>
+        </div>
+        <script type="text/javascript">
+          $(function(){
+              $('#send').click(function(){
+                  var fileObj  = document.getElementById("FileUpload").files[0]; // js 获取文件对象
+                  if (typeof (fileObj) == "undefined" || fileObj.size <= 0)
+                  {
+                      show_messages('要上传文件不能为空！');
+                      $('#FileUpload').focus();
+                      return false;
+                  }
+
+                 $('#form1').submit();
+              });
+          });
+        </script>
+            <include file="Public/Public_footer" />
