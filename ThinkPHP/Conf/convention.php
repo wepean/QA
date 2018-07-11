@@ -54,14 +54,10 @@ return  array(
 
     /* 数据库设置 */
     'DB_TYPE'               =>  'mysql',     // 数据库类型
-/*    'DB_HOST'               =>  '120.77.239.180', // 服务器地址
-    'DB_NAME'               =>  'questions_answers',          // 数据库名
-    'DB_USER'               =>  'wenda',      // 用户名
-    'DB_PWD'                =>  'WenDa#123',          // 密码*/
     'DB_HOST'               =>  'localhost', // 服务器地址
-    'DB_NAME'               =>  'questions_answers',          // 数据库名
-    'DB_USER'               =>  'root',      // 用户名
-    'DB_PWD'                =>  'root',          // 密码
+    'DB_NAME'               =>  '',          // 数据库名
+    'DB_USER'               =>  '',      // 用户名
+    'DB_PWD'                =>  '',          // 密码
     'DB_PORT'               =>  '3306',        // 端口
     'DB_PREFIX'             =>  'qa_',    // 数据库表前缀
     'DB_PARAMS'          	=>  array(), // 数据库连接参数    
